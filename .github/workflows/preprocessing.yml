@@ -43,3 +43,9 @@ jobs:
           # Commit & Push
           git commit -m "Auto-update: Dataset processed by $MY_USERNAME via GitHub Actions" || echo "No changes to commit"
           git push
+
+      - name: Check files
+        run: |
+          ls
+          ls preprocessing
+          ls preprocessing/mushrooms_preprocessing    
