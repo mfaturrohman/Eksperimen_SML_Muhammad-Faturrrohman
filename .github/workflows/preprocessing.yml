@@ -38,7 +38,7 @@ jobs:
           git config --global user.email "$MY_EMAIL"
           
           # Add file hasil
-          git add preprocessing/mushrooms_preprocessing/mushrooms_clean.csv
+          git add mushrooms_preprocessing/mushrooms_clean.csv
           
           # Commit & Push
           git commit -m "Auto-update: Dataset processed by $MY_USERNAME via GitHub Actions" || echo "No changes to commit"
