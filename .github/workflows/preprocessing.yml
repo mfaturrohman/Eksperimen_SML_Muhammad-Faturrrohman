@@ -4,48 +4,46 @@ on:
   push:
     branches:
       - main
+
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build-and-process:
     runs-on: ubuntu-latest
-    
-    permissions:
-      contents: write  
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install pandas numpy scikit-learn
+        run: |
+          pip install pandas numpy scikit-learn
 
       - name: Run Preprocessing Script
-        run: python preprocessing/automate_Muhammad-Faturrohman.py
-
-      - name: Commit and Push processed data
-        env: 
-          MY_USERNAME: ${{ secrets.USERNAME }}
-          MY_EMAIL: ${{ secrets.EMAIL }}
         run: |
-          # Menggunakan environment variable yang sudah di-load
-          git config --global user.name "$MY_USERNAME"
-          git config --global user.email "$MY_EMAIL"
-          
-          # Add file hasil
-          git add preprocessing/mushrooms_preprocessing/mushrooms_clean.csv
-          
-          # Commit & Push
-          git commit -m "Auto-update: Dataset processed by $MY_USERNAME via GitHub Actions" || echo "No changes to commit"
-          git push
+          python preprocessing/automate_Muhammad-Faturrohman.py
 
       - name: Check files
         run: |
           ls
           ls preprocessing
-          ls preprocessing/mushrooms_preprocessing    
+          ls preprocessing/mushrooms_preprocessing
+
+      - name: Commit and Push processed data
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git add preprocessing/mushrooms_preprocessing/mushrooms_clean.csv
+
+          git commit -m "Auto-update preprocessing dataset" || echo "No changes"
+
+          git push
