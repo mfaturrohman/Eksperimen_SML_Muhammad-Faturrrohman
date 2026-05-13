@@ -23,7 +23,9 @@ def encode_categorical(df):
 
 
 def save_data(df, output_path):
+    # membuat folder jika belum ada
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
     df.to_csv(output_path, index=False)
 
 
