@@ -29,7 +29,7 @@ def save_data(df, output_path):
 
 if __name__ == '__main__':
 
-    input_path = '/mushrooms_raw/mushrooms.csv'
+    input_path = 'mushrooms_raw/mushrooms.csv'
     output_path = 'mushrooms_preprocessing/mushrooms_clean.csv'
 
     # Load data
