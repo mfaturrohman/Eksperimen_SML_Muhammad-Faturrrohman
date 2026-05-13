@@ -27,7 +27,7 @@ jobs:
       - name: Run preprocessing
         run: |
           cd preprocessing
-          python automate_Muhammad Faturrohman.py
+          python automate_Muhammad-Faturrohman.py
 
       - name: Commit processed dataset
         run: |
