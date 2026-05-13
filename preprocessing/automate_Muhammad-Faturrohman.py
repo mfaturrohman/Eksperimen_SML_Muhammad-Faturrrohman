@@ -43,5 +43,5 @@ def preprocess_data(input_path, output_path):
 
 if __name__ == "__main__":
     INPUT_FILE = 'mushroom_raw/mushrooms.csv' 
-    OUTPUT_FILE = 'preprocessing/mushroom_preprocessing/mushroom_clean.csv'
+    OUTPUT_FILE = 'preprocessing/mushrooms_preprocessing/mushroom_clean.csv'
     preprocess_data(INPUT_FILE, OUTPUT_FILE)
