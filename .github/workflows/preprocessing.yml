@@ -26,7 +26,7 @@ jobs:
         run: pip install pandas numpy scikit-learn
 
       - name: Run Preprocessing Script
-        run: python preprocessing/automate_Nasikhun_Amin.py
+        run: python preprocessing/automate_Muhammad-Faturrohman.py
 
       - name: Commit and Push processed data
         env: 
