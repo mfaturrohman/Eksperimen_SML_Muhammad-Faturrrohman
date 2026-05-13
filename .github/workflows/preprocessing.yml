@@ -1,38 +1,45 @@
-name: Preprocessing Dataset
+name: Data Preprocessing Automation
 
 on:
   push:
     branches:
       - main
-
   workflow_dispatch:
 
 jobs:
-  preprocessing:
+  build-and-process:
     runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write  
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.9'
 
       - name: Install dependencies
-        run: |
-          pip install pandas scikit-learn
+        run: pip install pandas numpy scikit-learn
 
-      - name: Run preprocessing
-        run: |
-          cd preprocessing
-          python automate_Muhammad-Faturrohman.py
+      - name: Run Preprocessing Script
+        run: python preprocessing/automate_Nasikhun_Amin.py
 
-      - name: Commit processed dataset
+      - name: Commit and Push processed data
+        env: 
+          MY_USERNAME: ${{ secrets.USERNAME }}
+          MY_EMAIL: ${{ secrets.EMAIL }}
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          git add .
-          git commit -m "Update preprocessing dataset" || echo "No changes"
+          # Menggunakan environment variable yang sudah di-load
+          git config --global user.name "$MY_USERNAME"
+          git config --global user.email "$MY_EMAIL"
+          
+          # Add file hasil
+          git add preprocessing/mushroom_preprocessing/mushroom_clean.csv
+          
+          # Commit & Push
+          git commit -m "Auto-update: Dataset processed by $MY_USERNAME via GitHub Actions" || echo "No changes to commit"
           git push
